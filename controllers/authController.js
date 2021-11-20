@@ -44,6 +44,16 @@ module.exports.login_get = (req, res) => {
     res.render('login');
 }
 
+module.exports.detail_get = async (req, res) => {
+    const email = req.body;
+    try {
+        const user = await User.findOne(email).select("-password")
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+}
+
 module.exports.signup_post = async (req, res) => {
     const {email, password} = req.body;
     try {
@@ -62,12 +72,11 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const {email, password} = req.body;
-
     try {
         const user = await User.login(email, password);
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
-        res.status(200).json({user: user._id});
+        res.status(200).json({user: user._id, token: token});
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({errors});
@@ -75,7 +84,62 @@ module.exports.login_post = async (req, res) => {
 
 }
 
-module.exports.logout_get = (req,res) =>{
-    res.cookie('jwt', '',{maxAge: 1});
+module.exports.detail_post = (req, res) => {
+    const {email, gender, dateOfBirth, height, weight, activity, kcalMid} = req.body;
+    try {
+        User.updateOne({email: email},
+            {
+                $set:
+                    {
+                        gender: gender,
+                        dateOfBirth: dateOfBirth,
+                        height: height,
+                        weight: weight,
+                        activity: activity,
+                        kcalMid: kcalMid
+                    }
+            },
+        )
+        res.status(200).json({
+            email: email,
+            gender: gender,
+            dateOfBirth: dateOfBirth,
+            height: height,
+            weight: weight,
+            activity: activity,
+            kcalMid: kcalMid
+        });
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({errors});
+    }
+}
+
+module.exports.role_post = async (req, res) => {
+    const {email, role} = req.body;
+    try {
+        const user = await User.findOne({email});
+        if (user) {
+            User.updateOne({email: email},
+                {
+                    $set:
+                        {
+                            role: role,
+                        }
+                },
+            )
+            res.status(200).json({
+                email: email,
+                role: role,
+            });
+        }
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({errors});
+    }
+}
+
+module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', '', {maxAge: 1});
     res.redirect('/');
 }

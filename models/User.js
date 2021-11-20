@@ -15,6 +15,35 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please enter an password'],
         minlength: [4, 'Min password length is 6 characters']
     },
+    role: {
+        type: Boolean,
+        default: false
+    },
+    gender: {
+        type: String,
+        default: "None"
+    },
+    dateOfBirth: {
+        type: Date,
+        default: Date.parse("01.01.1921")
+    },
+    height: {
+        type: Number,
+        default: 0
+    },
+    weight: {
+        type: Number,
+        default: 0
+    },
+    activity: {
+        type: Number,
+        default: 0
+    },
+    kcalMid: {
+        type: Number,
+        default: 0
+    }
+
 })
 
 // userSchema.post('save', function (doc, next) {
