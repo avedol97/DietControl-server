@@ -1,7 +1,13 @@
-const User = require('../models/User')
-const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const UserPassword = require('../models/UserPassword');
+const bcrypt = require("bcrypt");
+const Joi = require('joi');
+const UsernameExists = require('../common/UsernameExists');
+const WrongEmailError = require("../common/WrongEmailError");
+const WrongPasswordError = require("../common/WrongPasswordError");
+const {loginUser, saveUser} = require("../services/authService");
 
-//handle errors
+
 const handleErrors = (err) => {
     console.log(err.message, err.code)
     let errors = {email: '', password: ' '};
@@ -29,12 +35,6 @@ const handleErrors = (err) => {
     return errors;
 }
 
-const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-    return jwt.sign({id}, 'secret', {
-        expiresIn: maxAge
-    });
-}
 
 module.exports.signup_get = (req, res) => {
     res.render('signup');
@@ -57,13 +57,25 @@ module.exports.detail_get = async (req, res) => {
 module.exports.signup_post = async (req, res) => {
     const {email, password} = req.body;
     try {
-        const user = await User.create({
-            email, password
+
+        const schema = Joi.object().keys({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(6).max(30).required()
         });
-        const token = createToken(user._id)
-        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
-        res.status(201).json({user: user._id});
+        let x = schema.validate(req.body);
+        if(x.error!==undefined){
+            res.status(400).json({message:"haslo"});
+            return;
+        }
+        let userL = await saveUser(email,password)
+
+        res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
+        res.status(201).json({user: userL._id});
     } catch (err) {
+        if( err instanceof UsernameExists){
+            res.status(400).json({message:"email jest juz zajety"});
+            return;
+        }
         const errors = handleErrors(err);
         res.status(400).json({errors});
     }
@@ -73,71 +85,23 @@ module.exports.signup_post = async (req, res) => {
 module.exports.login_post = async (req, res) => {
     const {email, password} = req.body;
     try {
-        const user = await User.login(email, password);
-        const token = createToken(user._id)
-        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
-        res.status(200).json({user: user._id, token: token});
+
+        let userL = await loginUser(email,password);
+        console.log(userL);
+        res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
+        res.status(201).json({user: userL._id});
     } catch (err) {
-        const errors = handleErrors(err);
-        res.status(400).json({errors});
-    }
+        if( err instanceof WrongEmailError){
 
-}
+        }else if(err instanceof WrongPasswordError){
 
-module.exports.detail_post = (req, res) => {
-    const {email, gender, dateOfBirth, height, weight, activity, kcalMid} = req.body;
-    try {
-        User.updateOne({email: email},
-            {
-                $set:
-                    {
-                        gender: gender,
-                        dateOfBirth: dateOfBirth,
-                        height: height,
-                        weight: weight,
-                        activity: activity,
-                        kcalMid: kcalMid
-                    }
-            },
-        )
-        res.status(200).json({
-            email: email,
-            gender: gender,
-            dateOfBirth: dateOfBirth,
-            height: height,
-            weight: weight,
-            activity: activity,
-            kcalMid: kcalMid
-        });
-    } catch (err) {
-        const errors = handleErrors(err);
-        res.status(400).json({errors});
-    }
-}
-
-module.exports.role_post = async (req, res) => {
-    const {email, role} = req.body;
-    try {
-        const user = await User.findOne({email});
-        if (user) {
-            User.updateOne({email: email},
-                {
-                    $set:
-                        {
-                            role: role,
-                        }
-                },
-            )
-            res.status(200).json({
-                email: email,
-                role: role,
-            });
         }
-    } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({errors});
     }
+
 }
+
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});

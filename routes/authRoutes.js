@@ -9,9 +9,6 @@ router.get('/login', authController.login_get);
 router.post('/login', authController.login_post);
 
 router.get('/detail', authController.detail_get);
-router.post('/detail', authController.detail_post);
-
-router.post('/role',authController.role_post);
 
 router.get('/logout', authController.logout_get);
 
