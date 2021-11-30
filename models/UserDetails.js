@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const userDetailsSchema = new mongoose.Schema({
-    userID: {
-        type: String,
-        unique: true,
-    },
     gender: {
         type: String,
         default: "None"
@@ -25,13 +21,13 @@ const userDetailsSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    kcalMid: {
+    kcalUserBalance: {
         type: Number,
         default: 0
     }
 })
 
 
-const UserDetails = mongoose.model('user', userDetailsSchema)
+const UserDetails = mongoose.model('detail', userDetailsSchema)
 
 module.exports = UserDetails;

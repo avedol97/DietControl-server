@@ -25,10 +25,7 @@ const saveUser = async function(email,password){
             email
         });
         let hashPassword = await cryptoPassword(password);
-        console.log(user);
         let _id = user._id
-        console.log(hashPassword)
-        console.log(typeof hashPassword)
         const userPassword = await UserPassword.create({
             _id, hashPassword
         })
@@ -43,7 +40,6 @@ const saveUser = async function(email,password){
 
 const loginUser = async function(email, password) {
     if(!checkEmail(email)){
-        console.log("if");
         throw new WrongEmailError();
     }
     const user = await User.findOne({email:email});

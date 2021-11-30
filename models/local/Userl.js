@@ -4,7 +4,7 @@ class Userl {
         this._email = email;
         this._password = password;
         this._token = token;
-        this._maxAge=maxAge;
+        this._maxAge = maxAge;
     }
 
     get id() {

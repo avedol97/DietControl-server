@@ -1,6 +1,3 @@
-const User = require('../models/User');
-const UserPassword = require('../models/UserPassword');
-const bcrypt = require("bcrypt");
 const Joi = require('joi');
 const UsernameExists = require('../common/UsernameExists');
 const WrongEmailError = require("../common/WrongEmailError");
