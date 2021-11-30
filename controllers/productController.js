@@ -30,3 +30,13 @@ module.exports.detail_post = (req, res) => {
         res.status(400).json({errors});
     }
 }
+
+module.exports.detail_get = async (req, res) => {
+    const email = req.body;
+    try {
+        const user = await User.findOne(email).select("-password")
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+}

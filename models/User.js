@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const {isEmail} = require('validator');
 
-
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -14,6 +13,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isDetails:{
+        type: Boolean,
+        default: false
+    }
 })
 
 const User = mongoose.model('user', userSchema)

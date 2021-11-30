@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes')
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
-
+const config = require('./config')
 const app = express();
 
 app.use(express.static('public'));
@@ -19,10 +19,8 @@ app.get('/',requireAuth, (request, respond) => {
 })
 app.get('/test', requireAuth, (req, res) => res.render('test'));
 
-
-const dbURI = 'mongodb+srv://test:test@cluster0.df9w6.mongodb.net/diet-control';
-mongoose.connect(dbURI)
-    .then((result) => app.listen(3000,() =>{console.log("Working")}))
+mongoose.connect(config.databaseUrl)
+    .then((result) => app.listen(config.port,() =>{console.info(`Server is running at ${config.port}`)}))
     .catch((err) => console.log(err));
 
 app.use(authRoutes);

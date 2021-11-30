@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const userPasswordSchema = new mongoose.Schema({
     hashPassword: {
         type: String,
@@ -8,7 +7,6 @@ const userPasswordSchema = new mongoose.Schema({
         minlength: [4, 'Min password length is 4 characters']
     }
 })
-
 
 const UserPassword = mongoose.model('password', userPasswordSchema)
 

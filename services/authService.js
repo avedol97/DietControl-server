@@ -9,9 +9,10 @@ const WrongEmailError = require("../common/WrongEmailError");
 const bcrypt = require("bcrypt");
 
 function checkEmail(email){
-    let result =User.findOne({email: email});
+    let result = User.findOne({email: email});
     return result.error() !== undefined
 }
+
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
     return jwt.sign({id}, 'secret', {
@@ -41,7 +42,8 @@ const saveUser = async function(email,password){
 
 
 const loginUser = async function(email, password) {
-    if(checkEmail(email)){
+    if(!checkEmail(email)){
+        console.log("if");
         throw new WrongEmailError();
     }
     const user = await User.findOne({email:email});
