@@ -1,4 +1,4 @@
-const Userl =require("../models/local/Userl")
+const Userl =require("../models/local/User")
 const UsernameExists = require("../common/UsernameExists")
 const cryptoPassword = require('../common/cryptoB.js');
 const jwt = require('jsonwebtoken');
@@ -8,9 +8,13 @@ const WrongPasswordError = require("../common/WrongPasswordError");
 const WrongEmailError = require("../common/WrongEmailError");
 const bcrypt = require("bcrypt");
 
-function checkEmail(email){
-    let result = User.findOne({email: email});
-    return result.error() !== undefined
+function checkEmailPromise(email){
+    return new Promise( ((resolve, reject) => {
+        User.findOne({email:email}, function(err,result) {
+            if(err) reject(err);
+            resolve(result);
+        })
+    }) );
 }
 
 const maxAge = 3 * 24 * 60 * 60;
@@ -20,7 +24,7 @@ const createToken = (id) => {
     });
 }
 const saveUser = async function(email,password){
-    if(!checkEmail(email)){
+    if(await checkEmailPromise(email)==null){
         const user = await User.create({
             email
         });
@@ -37,12 +41,11 @@ const saveUser = async function(email,password){
 }
 
 
-
 const loginUser = async function(email, password) {
-    if(!checkEmail(email)){
+    const user = await checkEmailPromise(email);
+    if(user==null){
         throw new WrongEmailError();
     }
-    const user = await User.findOne({email:email});
     const passwordHash = await UserPassword.findById(user._id);
     const auth = await bcrypt.compare(password,passwordHash.hashPassword);
     if(auth) {
@@ -52,7 +55,6 @@ const loginUser = async function(email, password) {
         throw new WrongPasswordError();
     }
 }
-
 
 module.exports = {
     saveUser: saveUser,

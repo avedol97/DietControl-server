@@ -1,11 +1,13 @@
-class Detaill {
-    constructor(id,gender,dateOfBirth,height,weight,activity) {
+class Detail {
+    constructor(id, gender, dateOfBirth, height, weight, activity, type,kcalUserBalance) {
         this._id = id;
         this._gender = gender
         this._dateOfBirth = dateOfBirth;
         this._height = height;
         this._weight = weight;
         this._activity = activity;
+        this._type = type;
+        this._kcalUserBalance = kcalUserBalance;
     }
 
     get id() {
@@ -63,5 +65,17 @@ class Detaill {
     set kcalUserBalance(value) {
         this._kcalUserBalance = value;
     }
+
+
+    get type() {
+        return this._type;
+    }
+
+    set type(value) {
+        this._type = value;
+    }
+
+
+
 }
-module.exports = Detaill;
+module.exports = Detail;

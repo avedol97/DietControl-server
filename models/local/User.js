@@ -1,4 +1,4 @@
-class Userl {
+class User {
     constructor(id,email, password, token, maxAge) {
         this._id = id;
         this._email = email;
@@ -39,4 +39,4 @@ class Userl {
         this._token = value;
     }
 }
-module.exports = Userl;
+module.exports = User;

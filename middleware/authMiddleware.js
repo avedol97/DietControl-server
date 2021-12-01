@@ -3,19 +3,21 @@ const User = require('../models/User');
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
-
+    console.log("reuqire Auth");
     if (token) {
         jwt.verify(token, 'secret', (err, decodedToken) => {
             if (err) {
+                //bledny token
                 console.log(err.message);
-                res.redirect('/login');
+                res.status(401).json({message:"No Auth"});
             } else {
                 console.log(decodedToken);
                 next();
             }
         })
     } else {
-        res.redirect('/login');
+        //brak tokeny
+        res.status(401).json({message:"No Auth"});
     }
 }
 

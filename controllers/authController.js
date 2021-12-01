@@ -43,7 +43,7 @@ module.exports.signup_post = async (req, res) => {
             return;
         }
         let userL = await saveUser(email,password)
-
+        console.info(`User is created! email: ${userL.email}`);
         res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
         res.status(201).json({user: userL._id});
     } catch (err) {
@@ -59,10 +59,11 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const {email, password} = req.body;
+
     try {
         let userL = await loginUser(email,password);
         res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
-        res.status(201).json({user: userL._id});
+        res.status(201).json({user: userL._id, token: userL._token});
         console.info(`Successfully logged in! email: ${userL.email}`);
     } catch (err) {
         if( err instanceof WrongEmailError) {
@@ -73,13 +74,13 @@ module.exports.login_post = async (req, res) => {
             return;
         }
         const errors = handleErrors(err);
-        res.status(400).json({errors});
+        res.status(400).json({message: "Wrong"});
     }
 
 }
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});
-    res.redirect('/');
-    console.info(`Successfully logged out! ${userL.email}`)
+    console.info(`Successfully logged out!`)
+    res.status(204).json();
 }

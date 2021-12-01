@@ -6,8 +6,7 @@ const userDetailsSchema = new mongoose.Schema({
         default: "None"
     },
     dateOfBirth: {
-        type: Date,
-        default: Date.parse("01.01.1921")
+        type: Object
     },
     height: {
         type: Number,
@@ -20,6 +19,10 @@ const userDetailsSchema = new mongoose.Schema({
     activity: {
         type: Number,
         default: 0
+    },
+    type: {
+        type: String,
+        default: "None"
     },
     kcalUserBalance: {
         type: Number,
