@@ -1,7 +1,6 @@
 const UserDetails = require("../models/UserDetails")
 const Detail = require("../models/local/Detail")
 const {estimateBmr} = require("../common/bmr")
-const User = require("../models/User");
 const ObjectId = require('mongodb').ObjectID;
 
 const saveDetails = async function (id, gender, dateOfBirth, height, weight, activity, type) {

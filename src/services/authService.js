@@ -7,6 +7,7 @@ const User = require("../models/User");
 const WrongPasswordError = require("../common/WrongPasswordError");
 const WrongEmailError = require("../common/WrongEmailError");
 const bcrypt = require("bcrypt");
+const config = require("../../config");
 
 function checkEmailPromise(email){
     return new Promise( ((resolve, reject) => {
@@ -18,8 +19,8 @@ function checkEmailPromise(email){
 }
 
 const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-    return jwt.sign({id}, 'secret', {
+const createToken = (id,isAdmin) => {
+    return jwt.sign({id,isAdmin}, config.JwtSecret, {
         expiresIn: maxAge
     });
 }
@@ -33,7 +34,7 @@ const saveUser = async function(email,password){
         const userPassword = await UserPassword.create({
             _id, hashPassword
         })
-        const token = createToken(user._id);
+        const token = createToken(user._id,user.isADmin);
         return new Userl(user._id,email,hashPassword,token, maxAge)
     }else{
         throw new UsernameExists('Email is registered')
@@ -49,7 +50,7 @@ const loginUser = async function(email, password) {
     const passwordHash = await UserPassword.findById(user._id);
     const auth = await bcrypt.compare(password,passwordHash.hashPassword);
     if(auth) {
-        const token = createToken(user._id)
+        const token = createToken(user._id,user.isAdmin)
         return new Userl(user._id,email,passwordHash,token, maxAge);
     }else{
         throw new WrongPasswordError();

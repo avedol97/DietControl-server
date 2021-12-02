@@ -39,4 +39,4 @@ class User {
         this._token = value;
     }
 }
-module.exports = User;
+
