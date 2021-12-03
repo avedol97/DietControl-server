@@ -1,17 +1,24 @@
 const {saveProduct, getProduct,deleteProduct, getAllProduct} = require("../services/productService");
 
 
-module.exports.product_post = async (req,res) => {
-    const {name, category, protein, fat, carbohydrates, calories} = req.body;
-    try{
-        let product = await saveProduct(name, category, protein, fat, carbohydrates, calories);
-        res.status(201).json(product);
-    }catch (err){
-        res.status(400).json();
+module.exports.product_create_post = async (req,res) => {
+    const {idUser,name, category, protein, fat, carbohydrates, calories} = req.body;
+    const checkProduct = await getProduct(name);
+    if(checkProduct.length ===0){
+        try{
+            let product = await saveProduct(idUser,name, category, protein, fat, carbohydrates, calories);
+            res.status(201).json(product);
+        }catch (err){
+            res.status(400).json();
+        }
+    }else {
+        res.status(406).json({message:"This Product is Exists"})
     }
+
+
 }
 
-module.exports.product_get_byName = async (req,res) => {
+module.exports.product_getByName= async (req,res) => {
     const {name} = req.body;
     try {
         const product = await getProduct(name);
@@ -21,7 +28,7 @@ module.exports.product_get_byName = async (req,res) => {
     }
 }
 
-module.exports.product_get_all = async (req,res) => {
+module.exports.product_getAll = async (req,res) => {
     try {
         const product = await getAllProduct();
         console.log("tu")

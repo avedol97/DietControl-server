@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     isDetails:{
         type: Boolean,
         default: false
+    },
+    isActive:{
+        type:Boolean,
+        default: true,
     }
 })
 

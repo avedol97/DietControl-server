@@ -19,17 +19,11 @@ const getAllProduct = async function () {
     });
 }
 
-const saveProduct = async function (name, category, protein, fat, carbohydrates, calories) {
-    const checkProduct =  await getProduct(name);
-    if(checkProduct.isEmpty){
+const saveProduct = async function (idUser,name, category, protein, fat, carbohydrates, calories) {
         const product = await Product.create({
-            name, category, protein, fat, carbohydrates, calories
+            idUser, name, category, protein, fat, carbohydrates, calories
         });
-        return new ProductLocal(name, category, protein, fat, carbohydrates, calories);
-    }else {
-        console.log("Product is exist")
-    }
-
+        return new ProductLocal(idUser,name, category, protein, fat, carbohydrates, calories);
 }
 
 

@@ -34,7 +34,7 @@ const saveUser = async function(email,password){
         const userPassword = await UserPassword.create({
             _id, hashPassword
         })
-        const token = createToken(user._id,user.isADmin);
+        const token = createToken(user._id,user.isAdmin);
         return new Userl(user._id,email,hashPassword,token, maxAge)
     }else{
         throw new UsernameExists('Email is registered')

@@ -1,7 +1,7 @@
 class Detail {
     constructor(id, gender, dateOfBirth, height, weight, activity, type,kcalUserBalance) {
         this._id = id;
-        this._gender = gender
+        this._gender = gender;
         this._dateOfBirth = dateOfBirth;
         this._height = height;
         this._weight = weight;

@@ -2,7 +2,7 @@ const Joi = require('joi');
 const UsernameExists = require('../common/UsernameExists');
 const WrongEmailError = require("../common/WrongEmailError");
 const WrongPasswordError = require("../common/WrongPasswordError");
-const {loginUser, saveUser} = require("../services/authService");
+const {loginUser, saveUser} = require("../services/userService");
 
 
 const handleErrors = (err) => {
@@ -42,10 +42,10 @@ module.exports.signup_post = async (req, res) => {
             res.status(400).json({message: "Problem with validation"});
             return;
         }
-        let userL = await saveUser(email,password)
-        console.info(`User is created! email: ${userL.email}`);
-        res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
-        res.status(201).json({user: userL._id});
+        let userLocal = await saveUser(email,password)
+        console.info(`User is created! email: ${userLocal.email}`);
+        res.cookie('jwt', userLocal._token, {httpOnly: true, maxAge: userLocal._maxAge * 1000})
+        res.status(201).json({user: userLocal._id});
     } catch (err) {
         if( err instanceof UsernameExists){
             res.status(400).json({message:"email jest juz zajety"});
@@ -73,9 +73,15 @@ module.exports.login_post = async (req, res) => {
             res.status(407).json({message: "Wrong Password!"});
             return;
         }
+        console.log(err);
         const errors = handleErrors(err);
         res.status(400).json({message: "Wrong"});
     }
+
+}
+
+
+module.exports.userDeactivation_post = (req, res)=>{
 
 }
 

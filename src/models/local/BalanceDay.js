@@ -1,15 +1,13 @@
-class Product {
-    constructor(idUser,name, category, protein, fat, carbohydrates, calories) {
+class BalanceDay {
+    constructor(idUser, idProduct, date, protein, fat, carbohydrates, kcalToday) {
         this._idUser = idUser;
-        this._category = category;
+        this._idProduct = idProduct;
+        this._date = date;
         this._protein = protein;
         this._fat = fat;
         this._carbohydrates = carbohydrates;
-        this._calories = calories;
-        this._name = name;
+        this._kcalToday = kcalToday;
     }
-
-
     get idUser() {
         return this._idUser;
     }
@@ -18,20 +16,20 @@ class Product {
         this._idUser = value;
     }
 
-    get name() {
-        return this._name;
+    get idProduct() {
+        return this._idProduct;
     }
 
-    set name(value) {
-        this._name = value;
+    set idProduct(value) {
+        this._idProduct = value;
     }
 
-    get category() {
-        return this._category;
+    get date() {
+        return this._date;
     }
 
-    set category(value) {
-        this._category = value;
+    set date(value) {
+        this._date = value;
     }
 
     get protein() {
@@ -58,13 +56,14 @@ class Product {
         this._carbohydrates = value;
     }
 
-    get calories() {
-        return this._calories;
+    get kcalToday() {
+        return this._kcalToday;
     }
 
-    set calories(value) {
-        this._calories = value;
+    set kcalToday(value) {
+        this._kcalToday = value;
     }
+
 }
 
-module.exports = Product;
+module.exports = BalanceDay;
