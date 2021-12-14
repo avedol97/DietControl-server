@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const authController = require('../controllers/userController')
+const userController = require('../controllers/userController')
 const detailController = require('../controllers/detailController')
 const productController = require('../controllers/productController')
 const balanceController = require('../controllers/balanceController')
@@ -8,10 +8,15 @@ const {admin} = require("./middleware/adminMiddleware");
 const router = Router();
 
 
-router.post('/guest/signup', authController.signup_post);
-router.post('/guest/login', authController.login_post);
-router.get('/user/logout', authController.logout_get);
-router.get('/admin/user', authController.logout_get);
+router.post('/guest/signup', userController.signup_post);
+router.post('/guest/login', userController.login_post);
+router.get('/user/logout', userController.logout_get);
+router.get('/user', userController.user_get);
+router.post('/user/update/details', userController.userUpdateDetail_post);
+router.post('/user/update/admin', userController.userUpdateAdmin_post);
+router.post('/user/update/active', userController.userUpdateActive_post);
+
+router.get('/admin/user', userController.logout_get);
 
 
 router.post('/user/details',requireAuth, detailController.detail_post);

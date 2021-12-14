@@ -2,7 +2,7 @@ const Joi = require('joi');
 const UsernameExists = require('../common/UsernameExists');
 const WrongEmailError = require("../common/WrongEmailError");
 const WrongPasswordError = require("../common/WrongPasswordError");
-const {loginUser, saveUser} = require("../services/userService");
+const {loginUser, saveUser, getUser,updateDetailUser, updateAdminUser, updateActiveUser} = require("../services/userService");
 
 
 const handleErrors = (err) => {
@@ -81,9 +81,55 @@ module.exports.login_post = async (req, res) => {
 }
 
 
-module.exports.userDeactivation_post = (req, res)=>{
+module.exports.userUpdateDetail_post = async (req,res)=>{
+    const {id} = req.body;
 
+    try {
+        await updateDetailUser(id);
+        const user = await getUser(id);
+        res.status(201).json(user);
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err);
+    }
 }
+
+module.exports.userUpdateAdmin_post = async (req,res)=>{
+    const {id} = req.body;
+
+    try {
+        await updateAdminUser(id);
+        const user = await getUser(id);
+        res.status(201).json(user);
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err);
+    }
+}
+
+module.exports.userUpdateActive_post = async (req,res)=>{
+    const {id} = req.body;
+
+    try {
+        await updateActiveUser(id);
+        const user = await getUser(id);
+        res.status(201).json(user);
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err);
+    }
+}
+
+module.exports.user_get = async (req, res)=>{
+    const {id} = req.body;
+    try {
+        const user = await getUser(id);
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+}
+
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});
