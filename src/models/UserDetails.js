@@ -21,6 +21,10 @@ const userDetailsSchema = new mongoose.Schema({
         default: 0
     },
     type: {
+        type: Number,
+        default: "None"
+    },
+    somatotyp: {
         type: String,
         default: "None"
     },

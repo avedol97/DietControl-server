@@ -19,7 +19,7 @@ router.post('/user/update/active', userController.userUpdateActive_post);
 router.get('/admin/user', userController.logout_get);
 
 
-router.post('/user/details',requireAuth, detailController.detail_post);
+router.post('/user/details', detailController.detail_post);
 router.get('/user/details',requireAuth, detailController.detail_get);
 
 router.post('/user/product',requireAuth, productController.product_create_post);

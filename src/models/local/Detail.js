@@ -1,5 +1,5 @@
 class Detail {
-    constructor(id, gender, dateOfBirth, height, weight, activity, type,kcalUserBalance) {
+    constructor(id, gender, dateOfBirth, height, weight, activity, type, somatotyp, kcalUserBalance) {
         this._id = id;
         this._gender = gender;
         this._dateOfBirth = dateOfBirth;
@@ -7,7 +7,17 @@ class Detail {
         this._weight = weight;
         this._activity = activity;
         this._type = type;
+        this._somatotyp =somatotyp;
         this._kcalUserBalance = kcalUserBalance;
+    }
+
+
+    get somatotyp() {
+        return this._somatotyp;
+    }
+
+    set somatotyp(value) {
+        this._somatotyp = value;
     }
 
     get id() {
