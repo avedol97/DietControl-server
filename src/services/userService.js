@@ -52,7 +52,7 @@ const loginUser = async function(email, password) {
     const auth = await bcrypt.compare(password, passwordHash.hashPassword);
     if (auth) {
         const token = createToken(user._id, user.isAdmin)
-        return new Userl(user._id, email, passwordHash, token, maxAge);
+        return new Userl(user._id, email, passwordHash, token, maxAge, user.isAdmin,user.isDetails);
     } else {
         throw new WrongPasswordError();
     }

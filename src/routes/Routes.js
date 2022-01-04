@@ -22,9 +22,9 @@ router.get('/admin/user', userController.logout_get);
 router.post('/user/details', detailController.detail_post);
 router.get('/user/details',requireAuth, detailController.detail_get);
 
-router.post('/user/product',requireAuth, productController.product_create_post);
-router.get('/user/product',requireAuth,  productController.product_getByName);
-router.get('/user/product/all',requireAuth,  productController.product_getAll);
+router.post('/user/product', productController.product_create_post);
+router.get('/user/product' , productController.product_getByName);
+router.get('/user/product/all' , productController.product_getAll);
 
 router.delete('/admin/product',requireAuth,admin,  productController.product_delete);
 

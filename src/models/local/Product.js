@@ -1,5 +1,5 @@
 class Product {
-    constructor(idUser,name, category, protein, fat, carbohydrates, calories) {
+    constructor(idUser,name, category, protein, fat, carbohydrates, calories,packaging) {
         this._idUser = idUser;
         this._category = category;
         this._protein = protein;
@@ -7,8 +7,17 @@ class Product {
         this._carbohydrates = carbohydrates;
         this._calories = calories;
         this._name = name;
+        this._packaging = packaging;
     }
 
+
+    get packaging() {
+        return this._packaging;
+    }
+
+    set packaging(value) {
+        this._packaging = value;
+    }
 
     get idUser() {
         return this._idUser;

@@ -18,7 +18,7 @@ module.exports.detail_post = async (req,res) => {
 }
 
 module.exports.detail_get = async (req,res) => {
-    const {id} = req.body;
+    const id = req.query.id;
     try {
         const detail = await getDetails(id);
         res.status(201).json(detail);

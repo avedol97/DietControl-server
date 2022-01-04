@@ -2,11 +2,11 @@ const {saveProduct, getProduct,deleteProduct, getAllProduct} = require("../servi
 
 
 module.exports.product_create_post = async (req,res) => {
-    const {idUser,name, category, protein, fat, carbohydrates, calories} = req.body;
+    const {idUser,name, category, protein, fat, carbohydrates, calories, packaging} = req.body;
     const checkProduct = await getProduct(name);
     if(checkProduct.length ===0){
         try{
-            let product = await saveProduct(idUser,name, category, protein, fat, carbohydrates, calories);
+            let product = await saveProduct(idUser,name, category, protein, fat, carbohydrates, calories, packaging);
             res.status(201).json(product);
         }catch (err){
             res.status(400).json();

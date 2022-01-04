@@ -29,6 +29,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please enter the calories'],
     },
+    packaging: {
+        type: String,
+        required: [true, 'Please enter the packaging'],
+    },
 
 })
 

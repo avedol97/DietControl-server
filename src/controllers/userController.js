@@ -63,7 +63,7 @@ module.exports.login_post = async (req, res) => {
     try {
         let userL = await loginUser(email,password);
         res.cookie('jwt', userL._token, {httpOnly: true, maxAge: userL._maxAge * 1000})
-        res.status(201).json({user: userL._id, token: userL._token});
+        res.status(201).json({user: userL._id, token: userL._token,isDetails: userL.isDetails, isAdmin: userL.isAdmin});
         console.info(`Successfully logged in! email: ${userL.email}`);
     } catch (err) {
         if( err instanceof WrongEmailError) {

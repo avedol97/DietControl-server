@@ -19,11 +19,11 @@ const getAllProduct = async function () {
     });
 }
 
-const saveProduct = async function (idUser,name, category, protein, fat, carbohydrates, calories) {
+const saveProduct = async function (idUser,name, category, protein, fat, carbohydrates, calories, packaging) {
         const product = await Product.create({
-            idUser, name, category, protein, fat, carbohydrates, calories
+            idUser, name, category, protein, fat, carbohydrates, calories, packaging
         });
-        return new ProductLocal(idUser,name, category, protein, fat, carbohydrates, calories);
+        return new ProductLocal(idUser,name, category, protein, fat, carbohydrates, calories, packaging);
 }
 
 
