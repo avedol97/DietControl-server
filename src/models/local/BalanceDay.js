@@ -1,12 +1,13 @@
 class BalanceDay {
-    constructor(idUser, idProduct, date, protein, fat, carbohydrates, kcalToday) {
+    constructor(idUser, idProduct, data, protein, fat, carbohydrates, kcalToday,weight) {
         this._idUser = idUser;
         this._idProduct = idProduct;
-        this._date = date;
+        this._data = data;
         this._protein = protein;
         this._fat = fat;
         this._carbohydrates = carbohydrates;
         this._kcalToday = kcalToday;
+        this._weight = weight;
     }
     get idUser() {
         return this._idUser;
@@ -24,12 +25,12 @@ class BalanceDay {
         this._idProduct = value;
     }
 
-    get date() {
-        return this._date;
+    get data() {
+        return this._data;
     }
 
-    set date(value) {
-        this._date = value;
+    set data(value) {
+        this._data = value;
     }
 
     get protein() {

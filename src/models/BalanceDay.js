@@ -8,9 +8,9 @@ const balanceSchema = new mongoose.Schema({
     idProduct: {
         type: Object,
     },
-    date: {
-        type: Date,
-        default: Date.now
+    data: {
+        type: Object,
+        required: true,
     },
     protein: {
         type: Number,
@@ -23,6 +23,10 @@ const balanceSchema = new mongoose.Schema({
     },
     kcalToday: {
         type: Number,
+    },
+    weight: {
+        type: Number,
+        default: 0
     },
 })
 
