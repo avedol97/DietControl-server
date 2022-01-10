@@ -9,7 +9,7 @@ module.exports.detail_post = async (req,res) => {
             let detail = await saveDetails(id,gender,date,height,weight,activity,type, somatotyp);
             res.status(201).json(detail);
         }catch (err){
-            res.status(400).json();
+            res.status(400).json(err);
         }
     }else {{
         res.status(406).json({message:"Detail for this user is exists"})

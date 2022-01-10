@@ -4,32 +4,6 @@ const WrongEmailError = require("../common/WrongEmailError");
 const WrongPasswordError = require("../common/WrongPasswordError");
 const {loginUser, saveUser, getUser,updateDetailUser, updateAdminUser, updateActiveUser} = require("../services/userService");
 
-
-const handleErrors = (err) => {
-
-    let errors = {email: '', password: ' '};
-
-    if(err.message === 'incorrect email'){
-        errors.email = 'that email is not registered'
-    }
-
-    if(err.message === 'incorrect password'){
-        errors.password = 'that password is incorrect'
-    }
-
-    if (err.code === 11000) {
-        errors.email = 'that email is registered';
-        return errors;
-    }
-
-    if (err.message.includes('user validation failed')) {
-        Object.values(err.errors).forEach(({properties}) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
-
 module.exports.signup_post = async (req, res) => {
     const {email, password} = req.body;
     try {
@@ -51,10 +25,8 @@ module.exports.signup_post = async (req, res) => {
             res.status(400).json({message:"email jest juz zajety"});
             return;
         }
-        const errors = handleErrors(err);
-        res.status(400).json({errors});
+        res.status(400).json("Problem");
     }
-
 }
 
 module.exports.login_post = async (req, res) => {
@@ -74,14 +46,11 @@ module.exports.login_post = async (req, res) => {
             return;
         }
         console.log(err);
-        const errors = handleErrors(err);
         res.status(400).json({message: "Wrong"});
     }
-
 }
 
-
-module.exports.userUpdateDetail_post = async (req,res)=>{
+module.exports.userUpdateDetail_put = async (req, res) => {
     const {id} = req.body;
 
     try {
@@ -94,7 +63,7 @@ module.exports.userUpdateDetail_post = async (req,res)=>{
     }
 }
 
-module.exports.userUpdateAdmin_post = async (req,res)=>{
+module.exports.userUpdateAdmin_put = async (req, res) => {
     const {id} = req.body;
 
     try {
@@ -107,7 +76,7 @@ module.exports.userUpdateAdmin_post = async (req,res)=>{
     }
 }
 
-module.exports.userUpdateActive_post = async (req,res)=>{
+module.exports.userUpdateActive_put = async (req, res) => {
     const {id} = req.body;
 
     try {
@@ -116,16 +85,6 @@ module.exports.userUpdateActive_post = async (req,res)=>{
         res.status(201).json(user);
     } catch (err) {
         console.log(err)
-        res.status(400).json(err);
-    }
-}
-
-module.exports.user_get = async (req, res)=>{
-    const {id} = req.body;
-    try {
-        const user = await getUser(id);
-        res.status(201).json(user);
-    } catch (err) {
         res.status(400).json(err);
     }
 }

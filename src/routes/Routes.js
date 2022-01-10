@@ -11,24 +11,20 @@ const router = Router();
 router.post('/guest/signup', userController.signup_post);
 router.post('/guest/login', userController.login_post);
 router.get('/user/logout', userController.logout_get);
-router.get('/user', userController.user_get);
-router.post('/user/update/details', userController.userUpdateDetail_post);
-router.post('/user/update/admin', userController.userUpdateAdmin_post);
-router.post('/user/update/active', userController.userUpdateActive_post);
 
-router.get('/admin/user', userController.logout_get);
+router.put('/user/update/details', userController.userUpdateDetail_put);
+router.put('/user/update/admin', userController.userUpdateAdmin_put);
+router.put('/user/update/active', userController.userUpdateActive_put);
 
+router.post('/details', detailController.detail_post);
+router.get('/details', detailController.detail_get);
 
-router.post('/user/details', detailController.detail_post);
-router.get('/user/details',requireAuth, detailController.detail_get);
+router.post('/product', productController.product_create_post);
+router.get('/products/all' , productController.product_getAll);
 
-router.post('/user/product', productController.product_create_post);
-router.get('/user/product' , productController.product_getByName);
-router.get('/user/product/all' , productController.product_getAll);
+router.delete('/product',requireAuth,admin,  productController.product_delete);
 
-router.delete('/admin/product',requireAuth,admin,  productController.product_delete);
-
-router.post('/user/balance',requireAuth, balanceController.balance_create_post);
-router.get('/user/balance',requireAuth, balanceController.balance_getAll);
+router.post('/balance', balanceController.balance_create_post);
+router.get('/balance', balanceController.balance_getAll);
 
 module.exports = router;

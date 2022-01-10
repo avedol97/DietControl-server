@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require("../../../config");
 
+
 const admin = (req, res, next) => {
 
     const token = req.cookies.jwt;
@@ -16,4 +17,5 @@ const admin = (req, res, next) => {
         res.status(400).send('Invalid token.');
     }
 };
+
 module.exports = {admin};

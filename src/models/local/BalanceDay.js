@@ -1,8 +1,8 @@
 class BalanceDay {
-    constructor(idUser, idProduct, data, protein, fat, carbohydrates, kcalToday,weight) {
+    constructor(idUser, idProduct, date, protein, fat, carbohydrates, kcalToday,weight) {
         this._idUser = idUser;
         this._idProduct = idProduct;
-        this._data = data;
+        this._date = date;
         this._protein = protein;
         this._fat = fat;
         this._carbohydrates = carbohydrates;

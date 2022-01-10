@@ -8,21 +8,25 @@ const balanceSchema = new mongoose.Schema({
     idProduct: {
         type: Object,
     },
-    data: {
+    date: {
         type: Object,
         required: true,
     },
     protein: {
         type: Number,
+        default: 0,
     },
     fat: {
         type: Number,
+        default: 0,
     },
     carbohydrates: {
         type: Number,
+        default: 0,
     },
     kcalToday: {
         type: Number,
+        default: 0,
     },
     weight: {
         type: Number,

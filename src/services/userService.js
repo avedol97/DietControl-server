@@ -1,4 +1,4 @@
-const Userl =require("../models/local/User")
+const UserLocal =require("../models/local/User")
 const UsernameExists = require("../common/UsernameExists")
 const cryptoPassword = require('../common/cryptoB.js');
 const jwt = require('jsonwebtoken');
@@ -8,7 +8,19 @@ const WrongPasswordError = require("../common/WrongPasswordError");
 const WrongEmailError = require("../common/WrongEmailError");
 const bcrypt = require("bcrypt");
 const config = require("../../config");
+;
 const ObjectId = require('mongodb').ObjectID;
+
+const maxAge = 3 * 24 * 60 * 60;
+
+const getUser = async function (id) {
+    return new Promise((resolve, reject) => {
+        User.findById(ObjectId(id), function (err, result) {
+            if (err) reject(err);
+            resolve(result);
+        })
+    });
+}
 
 function checkEmailPromise(email){
     return new Promise( ((resolve, reject) => {
@@ -19,7 +31,6 @@ function checkEmailPromise(email){
     }) );
 }
 
-const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id,isAdmin) => {
     return jwt.sign({id,isAdmin}, config.JwtSecret, {
         expiresIn: maxAge
@@ -36,12 +47,11 @@ const saveUser = async function(email,password){
             _id, hashPassword
         })
         const token = createToken(user._id,user.isAdmin);
-        return new Userl(user._id,email,hashPassword,token, maxAge)
+        return new UserLocal(user._id,email,hashPassword,token, maxAge)
     }else{
         throw new UsernameExists('Email is registered')
     }
 }
-
 
 const loginUser = async function(email, password) {
     const user = await checkEmailPromise(email);
@@ -52,7 +62,7 @@ const loginUser = async function(email, password) {
     const auth = await bcrypt.compare(password, passwordHash.hashPassword);
     if (auth) {
         const token = createToken(user._id, user.isAdmin)
-        return new Userl(user._id, email, passwordHash, token, maxAge, user.isAdmin,user.isDetails);
+        return new UserLocal(user._id, email, passwordHash, token, maxAge, user.isAdmin,user.isDetails);
     } else {
         throw new WrongPasswordError();
     }
@@ -98,16 +108,6 @@ const updateActiveUser = async function (id) {
         .catch((err) => {
             console.log('Error: ' + err);
         })
-}
-
-
-const getUser = async function (id) {
-    return new Promise((resolve, reject) => {
-        User.findById(ObjectId(id), function (err, result) {
-            if (err) reject(err);
-            resolve(result);
-        })
-    });
 }
 
 module.exports = {

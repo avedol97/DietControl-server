@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node",
+    "dev": "env-cmd config/dev.env nodemon",
+    "test": "env-cmd config/test.env/ jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +21,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.11",
     "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.3.0",
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "mongodb": "^4.2.1"
+    "dotenv": "^10.0.0",
+    "env-cmd": "^8.0.2",
+    "jest": "^27.4.7",
+    "mongodb": "^4.2.1",
+    "supertest": "^6.1.6"
   }
 }

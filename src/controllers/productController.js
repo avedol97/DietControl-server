@@ -31,7 +31,6 @@ module.exports.product_getByName= async (req,res) => {
 module.exports.product_getAll = async (req,res) => {
     try {
         const product = await getAllProduct();
-        console.log("tu")
         res.status(201).json(product);
     } catch (err) {
         res.status(400).json(err);

@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const config = require("../../../config");
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
-        jwt.verify(token, 'secret', (err, decodedToken) => {
+        jwt.verify(token, config.JwtSecret, (err, decodedToken) => {
             if (err) {
-                //bledny token
+
                 console.log(err.message);
                 res.status(401).json({message:"No Auth"});
             } else {
@@ -15,7 +16,6 @@ const requireAuth = (req, res, next) => {
             }
         })
     } else {
-        //brak tokeny
         res.status(401).json({message:"No Auth"});
     }
 }
@@ -24,7 +24,7 @@ const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
 
     if (token) {
-        jwt.verify(token, 'secret', async (err, decodedToken) => {
+        jwt.verify(token, config.JwtSecret, async (err, decodedToken) => {
                 if (err) {
                     console.log(err.message);
                     res.locals.user = null;

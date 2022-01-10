@@ -1,0 +1,433 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My User Project CRUD",
+    "description": "Diet Controll Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/user/logout": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Logout system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/update/details": {
+      "put": {
+        "tags": ["User"],
+        "description": "Login in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/update/admin": {
+      "put": {
+        "tags": ["User"],
+        "description": "Login in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/update/active": {
+      "put": {
+        "tags": ["User"],
+        "description": "Login in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/guest/login": {
+      "post": {
+        "tags": ["Guest"],
+        "summary": "Login system",
+        "description": "Login in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/guest/signup": {
+      "post": {
+        "tags": ["Guest"],
+        "description": "Create new user in system",
+        "summary": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/details": {
+      "post": {
+        "tags": ["Details"],
+        "summary": "Create new user details in system",
+        "description": "Create new user details in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user details is created",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            }
+          }
+        }
+      }
+    },
+    "/details?id={id}": {
+      "get": {
+        "tags": ["Details"],
+        "summary": "Get user details from the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            }
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Create new product in system",
+        "description": "Create new product in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New product is created",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
+    "/products/all": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get all products from the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
+    "/product/admin": {
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Remove the product from the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
+    "/balance": {
+      "post": {
+        "tags": ["Balance"],
+        "summary": "Create new balance day in system",
+        "description": "Create new balance day in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New balance day is created",
+            "schema": {
+              "$ref": "#/definitions/BalanceDay"
+            }
+          }
+        }
+      }
+    },
+    "/balance?id={id}": {
+      "get": {
+        "tags": ["Balance"],
+        "summary": "Get all balance day from the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BalanceDay"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "email",
+        "_id",
+        "companies"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "default": false
+        },
+        "isDetails": {
+          "type": "boolean",
+          "default": false
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "UserPassword":{
+      "required": [
+        "hashPassword"
+      ],
+      "properties": {
+        "hashPassword": {
+          "type": "string",
+          "minLength": 4
+        }
+      }
+  },
+    "UserDetails": {
+      "required": [],
+      "properties": {
+        "gender": {
+          "type": "string",
+          "default": "none"
+        },
+        "dateOfBirth": {
+          "type": "object"
+        },
+        "height": {
+          "type": "number",
+          "default": 0
+        },
+        "weight": {
+          "type": "number",
+          "default": 0
+        },
+        "activity": {
+          "type": "number",
+          "default": 0
+        },
+        "type": {
+          "type": "number",
+          "default": 0
+        },
+        "somatotyp": {
+          "type": "string",
+          "default": "none"
+        },
+        "kcalUserBalance": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    },
+    "Product": {
+      "required": ["idUser","name","category","protein","fat","carbohydrates","calories","packaging"],
+      "properties": {
+        "idUser": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "protein": {
+          "type": "number"
+        },
+        "fat": {
+          "type": "number"
+        },
+        "carbohydrates": {
+          "type": "number"
+        },
+        "calories": {
+          "type": "number"
+        },
+        "packaging": {
+          "type": "string"
+        }
+      }
+    },
+    "BalanceDay": {
+      "required": ["idUser","data"],
+      "properties": {
+        "idUser": {
+          "type": "string"
+        },
+        "idProduct": {
+          "type": "object"
+        },
+        "data": {
+          "type": "object"
+        },
+        "protein": {
+          "type": "number",
+          "default": 0
+        },
+        "fat": {
+          "type": "number",
+          "default": 0
+        },
+        "carbohydrates": {
+          "type": "number",
+          "default": 0
+        },
+        "kcalToday": {
+          "type": "number",
+          "default": 0
+        },
+        "weight": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    }
+  }
+}

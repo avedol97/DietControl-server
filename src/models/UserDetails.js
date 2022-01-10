@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userDetailsSchema = new mongoose.Schema({
     gender: {
         type: String,
-        default: "None"
+        default: "None",
     },
     dateOfBirth: {
         type: Object
@@ -22,7 +22,7 @@ const userDetailsSchema = new mongoose.Schema({
     },
     type: {
         type: Number,
-        default: "None"
+        default: 0
     },
     somatotyp: {
         type: String,
