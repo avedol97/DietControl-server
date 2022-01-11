@@ -11,6 +11,7 @@ const router = Router();
 router.post('/guest/signup', userController.signup_post);
 router.post('/guest/login', userController.login_post);
 router.get('/user/logout', userController.logout_get);
+router.put('/user/password', userController.changePassword_put);
 
 router.put('/user/update/details', userController.userUpdateDetail_put);
 router.put('/user/update/admin', userController.userUpdateAdmin_put);
@@ -18,6 +19,8 @@ router.put('/user/update/active', userController.userUpdateActive_put);
 
 router.post('/details', detailController.detail_post);
 router.get('/details', detailController.detail_get);
+router.put('/details/update', detailController.updateDetail_put);
+router.put('/details/avatar', detailController.updateAvatar_put);
 
 router.post('/product', productController.product_create_post);
 router.get('/products/all' , productController.product_getAll);

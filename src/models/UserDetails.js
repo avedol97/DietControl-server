@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const userDetailsSchema = new mongoose.Schema({
+    avatar:{
+        type: String,
+        default: "None",
+    },
     gender: {
         type: String,
         default: "None",

@@ -2,7 +2,7 @@ const Joi = require('joi');
 const UsernameExists = require('../common/UsernameExists');
 const WrongEmailError = require("../common/WrongEmailError");
 const WrongPasswordError = require("../common/WrongPasswordError");
-const {loginUser, saveUser, getUser,updateDetailUser, updateAdminUser, updateActiveUser} = require("../services/userService");
+const {loginUser, saveUser, getUser,updateDetailUser, updateAdminUser, updateActiveUser, changePassword} = require("../services/userService");
 
 module.exports.signup_post = async (req, res) => {
     const {email, password} = req.body;
@@ -42,6 +42,23 @@ module.exports.login_post = async (req, res) => {
             res.status(400).json({message: "Email not exists!"});
             return;
         }else if(err instanceof WrongPasswordError) {
+            res.status(407).json({message: "Wrong Password!"});
+            return;
+        }
+        console.log(err);
+        res.status(400).json({message: "Wrong"});
+    }
+}
+
+
+module.exports.changePassword_put = async (req, res) => {
+    const {email, password,newPassword} = req.body;
+
+    try {
+        await  changePassword(email, password, newPassword);
+        res.status(200).json({message: "Successfully Updated " + email});
+    } catch (err) {
+     if(err instanceof WrongPasswordError) {
             res.status(407).json({message: "Wrong Password!"});
             return;
         }

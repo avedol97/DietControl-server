@@ -7,7 +7,7 @@ const User = require("../models/User");
 const WrongPasswordError = require("../common/WrongPasswordError");
 const WrongEmailError = require("../common/WrongEmailError");
 const bcrypt = require("bcrypt");
-const config = require("../../config");
+const config = require("../../config");;
 ;
 const ObjectId = require('mongodb').ObjectID;
 
@@ -68,6 +68,24 @@ const loginUser = async function(email, password) {
     }
 }
 
+
+const changePassword = async function(email, oldPasswordInput, newPasswordInput){
+    const user = await checkEmailPromise(email);
+    const oldPassword = await UserPassword.findById(user._id);
+    const auth = await bcrypt.compare(oldPasswordInput, oldPassword.hashPassword);
+    if(auth){
+        await UserPassword.updateOne({"_id": oldPassword._id},
+            {$set: {"hashPassword": await cryptoPassword(newPasswordInput) }} ).then((obj) => {
+            console.log('Updated - ' + obj);
+        })
+            .catch((err) => {
+                console.log('Error: ' + err);
+            })
+    }else{
+        throw new WrongPasswordError();
+    }
+}
+
 const updateDetailUser = async function (id) {
     const user = await getUser(id);
      return await User.updateOne({
@@ -81,6 +99,7 @@ const updateDetailUser = async function (id) {
             console.log('Error: ' + err);
         })
 }
+
 
 const updateAdminUser = async function (id) {
     const user = await getUser(id);
@@ -117,4 +136,5 @@ module.exports = {
     updateDetailUser: updateDetailUser,
     updateAdminUser: updateAdminUser,
     updateActiveUser: updateActiveUser,
+    changePassword: changePassword,
 };

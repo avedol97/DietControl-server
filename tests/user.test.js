@@ -47,3 +47,13 @@ test('Should change the boolean value - isActive', async() =>{
         })
         .expect(201)
 })
+
+// test('Should change password', async() =>{
+//     await request(app).put('/user/password')
+//         .send({
+//             email: "krystian@o2.pl",
+//             password: "krystian123",
+//             newPassword: "krystian1234"
+//         })
+//         .expect(200)
+// })

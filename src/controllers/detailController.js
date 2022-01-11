@@ -1,4 +1,4 @@
-const {saveDetails, getDetails} = require("../services/detailService")
+const {saveDetails, getDetails, updateDetails, updateAvatar} = require("../services/detailService")
 
 module.exports.detail_post = async (req,res) => {
     const {id,gender,date,height,weight,activity,type, somatotyp} = req.body;
@@ -17,6 +17,26 @@ module.exports.detail_post = async (req,res) => {
 
 }
 
+module.exports.updateDetail_put = async (req,res) => {
+    const {id, weight, activity, type} = req.body;
+        try{
+            let detailUpdate = await updateDetails(id, weight, activity, type);
+            res.status(200).json(detailUpdate);
+        }catch (err){
+            res.status(400).json(err);
+        }
+}
+
+module.exports.updateAvatar_put = async (req,res) => {
+    const {id, avatar} = req.body;
+    try{
+        let detailUpdate = await updateAvatar(id, avatar);
+        res.status(200).json(detailUpdate);
+    }catch (err){
+        res.status(400).json(err);
+    }
+}
+
 module.exports.detail_get = async (req,res) => {
     const id = req.query.id;
     try {
@@ -25,4 +45,6 @@ module.exports.detail_get = async (req,res) => {
     } catch (err) {
         res.status(400).json(err);
     }
+
+
 }

@@ -14,12 +14,22 @@ function getAge(dateString) {
 
 let BMR = 0;
 
-const estimateBmr = function(gender,dateOfBirth,height,weight,activity){
-    console.log(getAge(dateOfBirth));
+const estimateBmr = function(gender,dateOfBirth,height,weight,activity, type){
+
     if(gender === "Men" ){
         BMR = (66.5 + (13.7 * weight) + (5 * height) - (6.8 * getAge(dateOfBirth)))*activity;
+        if(type === -1){
+            BMR -= 300
+        }else if (type === 1){
+            BMR += 300
+        }
     }else if(gender === "Woman"){
         BMR = (655 + (9.6  * weight) + (1.85 * height) - (4.7 * getAge(dateOfBirth)))*activity;
+        if(type === -1){
+            BMR -= 300
+        }else if (type === 1){
+            BMR += 300
+        }
     }else {
         console.log("Problem with gender")
     }
