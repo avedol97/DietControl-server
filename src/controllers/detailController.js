@@ -1,12 +1,12 @@
 const {saveDetails, getDetails, updateDetails, updateAvatar} = require("../services/detailService")
 
 module.exports.detail_post = async (req,res) => {
-    const {id,gender,date,height,weight,activity,type, somatotyp} = req.body;
+    const {id,gender,dateOfBirth,height,weight,activity,purpose, somatic} = req.body;
     const checkDetail = await getDetails(id);
 
     if(checkDetail == null){
         try{
-            let detail = await saveDetails(id,gender,date,height,weight,activity,type, somatotyp);
+            let detail = await saveDetails(id,gender,dateOfBirth,height,weight,activity,purpose, somatic);
             res.status(201).json(detail);
         }catch (err){
             res.status(400).json(err);
@@ -18,9 +18,9 @@ module.exports.detail_post = async (req,res) => {
 }
 
 module.exports.updateDetail_put = async (req,res) => {
-    const {id, weight, activity, type} = req.body;
+    const {id, weight, activity, purpose} = req.body;
         try{
-            let detailUpdate = await updateDetails(id, weight, activity, type);
+            let detailUpdate = await updateDetails(id, weight, activity, purpose);
             res.status(200).json(detailUpdate);
         }catch (err){
             res.status(400).json(err);

@@ -3,23 +3,23 @@ const Detail = require("../models/local/Detail")
 const {estimateBmr} = require("../common/bmr")
 const ObjectId = require('mongodb').ObjectID;
 
-const saveDetails = async function (id, gender, dateOfBirth, height, weight, activity, type,somatotyp) {
-    let kcalUserBalance = estimateBmr(gender, dateOfBirth, height, weight, activity,type);
+const saveDetails = async function (id, gender, dateOfBirth, height, weight, activity, purpose,somatic) {
+    let kcalUserBalance = estimateBmr(gender, dateOfBirth, height, weight, activity,purpose);
     let _id = id;
     const userDetails = await UserDetails.create({
-        _id, gender, dateOfBirth, height, weight, activity, type, somatotyp, kcalUserBalance
+        _id, gender, dateOfBirth, height, weight, activity, purpose, somatic, kcalUserBalance
     });
-    return new Detail(id, gender, dateOfBirth, height, weight, activity, type, somatotyp, kcalUserBalance);
+    return new Detail(id, gender, dateOfBirth, height, weight, activity, purpose, somatic, kcalUserBalance);
 }
 
-const updateDetails = async function(id, weight, activity, type){
+const updateDetails = async function(id, weight, activity, purpose){
     const detail = await getDetails(id);
-    let kcalUserBalance = estimateBmr(detail.gender, detail.dateOfBirth, detail.height, weight, activity,type);
+    let kcalUserBalance = estimateBmr(detail.gender, detail.dateOfBirth, detail.height, weight, activity,purpose);
 
     return await UserDetails.updateMany({
             "_id": id
         },
-        {$set: {"weight": weight,"activity":activity, "type":type, "kcalUserBalance":kcalUserBalance}}
+        {$set: {"weight": weight,"activity":activity, "purpose":purpose, "kcalUserBalance":kcalUserBalance}}
     ).then((obj) => {
         console.log('Updated - ' + obj);
     })

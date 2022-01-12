@@ -13,7 +13,7 @@ router.post('/guest/login', userController.login_post);
 router.get('/user/logout', userController.logout_get);
 router.put('/user/password', userController.changePassword_put);
 
-router.put('/user/update/details', userController.userUpdateDetail_put);
+router.post('/user/update/details', userController.userUpdateDetail_put);
 router.put('/user/update/admin', userController.userUpdateAdmin_put);
 router.put('/user/update/active', userController.userUpdateActive_put);
 

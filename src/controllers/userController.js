@@ -39,10 +39,10 @@ module.exports.login_post = async (req, res) => {
         console.info(`Successfully logged in! email: ${userL.email}`);
     } catch (err) {
         if( err instanceof WrongEmailError) {
-            res.status(400).json({message: "Email not exists!"});
+            res.status(400).json({message: "Nieprawidłowy email!"});
             return;
         }else if(err instanceof WrongPasswordError) {
-            res.status(407).json({message: "Wrong Password!"});
+            res.status(400).json({message: "Nieprawidłowe hasło!"});
             return;
         }
         console.log(err);
