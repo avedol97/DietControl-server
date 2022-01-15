@@ -24,7 +24,6 @@ router.put('/details/avatar', detailController.updateAvatar_put);
 
 router.post('/product', productController.product_create_post);
 router.get('/products/all' , productController.product_getAll);
-
 router.delete('/product',requireAuth,admin,  productController.product_delete);
 
 router.post('/balance', balanceController.balance_create_post);

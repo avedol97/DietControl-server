@@ -31,9 +31,24 @@
         }
       }
     },
+    "/user/password": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Change user password",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
     "/user/update/details": {
       "put": {
         "tags": ["User"],
+        "summary": "Update user details",
         "description": "Login in system",
         "parameters": [
           {
@@ -58,7 +73,8 @@
     },
     "/user/update/admin": {
       "put": {
-        "tags": ["User"],
+        "tags": ["Admin"],
+        "summary": "Update role status",
         "description": "Login in system",
         "parameters": [
           {
@@ -83,7 +99,8 @@
     },
     "/user/update/active": {
       "put": {
-        "tags": ["User"],
+        "tags": ["Admin"],
+        "summary": "Update user status",
         "description": "Login in system",
         "parameters": [
           {
@@ -108,7 +125,7 @@
     },
     "/guest/login": {
       "post": {
-        "tags": ["Guest"],
+        "tags": ["User"],
         "summary": "Login system",
         "description": "Login in system",
         "parameters": [
@@ -134,7 +151,7 @@
     },
     "/guest/signup": {
       "post": {
-        "tags": ["Guest"],
+        "tags": ["User"],
         "description": "Create new user in system",
         "summary": "Create new user in system",
         "parameters": [
@@ -198,6 +215,34 @@
         }
       }
     },
+    "/details/update": {
+      "put": {
+        "tags": ["Details"],
+        "summary": "Update user details",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            }
+          }
+        }
+      }
+    },
+    "/details/avatar": {
+      "put": {
+        "tags": ["Details"],
+        "summary": "Updater user avatar",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            }
+          }
+        }
+      }
+    },
     "/product": {
       "post": {
         "tags": ["Products"],
@@ -238,9 +283,23 @@
         }
       }
     },
+    "/product/admin/accept": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Accept user product",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
     "/product/admin": {
       "delete": {
-        "tags": ["Products"],
+        "tags": ["Admin"],
         "summary": "Remove the product from the system",
         "responses": {
           "200": {
