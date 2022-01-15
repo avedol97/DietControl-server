@@ -1,3 +1,5 @@
 Aplikacja do kontrolowania i zarządzania zdrową dietą 
 
-Krystian 
+
+### Klient Aplikacji
+## https://github.com/krystiancwioro/DietControl-client
