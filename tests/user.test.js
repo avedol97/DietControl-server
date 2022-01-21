@@ -25,7 +25,7 @@ test('Should log out system', async() =>{
 })
 
 test('Should change the boolean value - isDetails', async() =>{
-    await request(app).put('/user/update/details')
+    await request(app).post('/user/update/details')
         .send({
             id: "61cc40edab94052da2a6607a"
         })
